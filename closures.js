@@ -149,12 +149,7 @@ var module = (function() {
     name: "phillip",
     age: 29,
     location: "Utah",
-    publicMethod: function() {
-      return privateMethod();
-    }
   };
-
-
 
   function privateMethod(){
     return "Hi, I'm " + person.name + ", age " + person.age + " from " + person.location;
@@ -163,10 +158,13 @@ var module = (function() {
   // Anything that is being returned is made public and can be invoked from
   // outside our lexical scope
   return {
-  
+    publicMethod: () => {
+      return privateMethod();
+    }
   };
 })();
 
+module.publicMethod();
 
 ////////// PROBLEM 7 //////////
 
@@ -181,7 +179,8 @@ function secretNumber() {
   var secret = 143;
 
   return {
-    // Code here
+    addToSecret: (num) => secret += num,
+    takeAwayFromSecret: (num) => secret -= num
   };
 }
 
@@ -206,9 +205,11 @@ function secretNumber() {
 */
 
 function timeOutCounter() {
+  var count = 0
   for (var i = 0; i <= 5; i++) {
     setTimeout(function() {
-      console.log(i);
+      console.log(count);
+      count++;
     }, i * 1000);
   }
 }
